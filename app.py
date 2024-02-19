@@ -144,7 +144,7 @@ suggestion_tours={"id_rome":"static/images/rome/rome3.jpg",
                        "id_dublin":"static/images/dublin/dublin_3.jpg",
                        "id_milan":"static/images/milan/milan_1.jpg",
                        "id_paris":"static/images/paris/paris_1.jpg",
-                        "id_portugal":"static/images/banner/sunsetportugal.jpeg"}
+                        "id_portugal":"static/images/banner/sunsetPortugal.jpeg"}
 
 # when the client access the home page they receive the list of tours that we provide
 # and the tours that they mark like favorites
