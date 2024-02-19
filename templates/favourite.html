@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css"> 
+    <script src="https://kit.fontawesome.com/4da6a52bad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+<body>
+    {% include "nav.html" %}
+    <h3 class="sub_pref">YOUR PREFERENCES</h3>
+    <div class="container_list_tour">
+        
+<!-- I check the favourite_tours list is empty -->
+        {% if favourite_tours|length==0 %}
+            <!-- if is empty i display this part-->
+            <form class="frm_ch_tr active" action="/tours" method="post">
+                <h3 class="sub_adv">Looks like you need to take a look at the plans we have prepared for you </h3>
+                <div class="wrapper_none_fav">
+                <h1 class="none_fav">CHOOSE YOUR NEXT ADVENTURE! </h1>
+                <input type="hidden" name="back_home">
+                <button class="btn_ch_tr" type="submit">
+                    <i class="fa-solid fa-person-walking-luggage luggage"></i>
+                </button>
+            </div>
+            </form>
+        <!-- <form class="frm_ch_tr disable" action="/tours" method="post">
+            <h3 class="sub_adv">Looks like you need to take a look at the plans we have prepared for you </h3>
+            <div class="wrapper_none_fav">
+            <h1 class="none_fav">CHOOSE YOUR NEXT ADVENTURE! </h1>
+            <input type="hidden" name="back_home">
+            <button class="btn_ch_tr" type="submit">
+                <i class="fa-solid fa-person-walking-luggage luggage"></i>
+            </button>
+        </div>
+        </form> -->
+       
+        {% endif %}
+        <ul class="containet_list_fav">
+           
+<!-- I display the list  of tours marked as favorites -->
+             {% for t_selected in favourite_tours.values() %}
+             <!-- get id of the tour -->
+       <li class="item_list_fav" id="{{t_selected.get_id()}}">
+        <div class="container_tour">
+    
+            <div class="wrapper_img">
+                <!-- get the url fro the image -->
+                 <img  class="cover_tour"src="{{t_selected.get_url_img() }}">
+            </div>
+             <div class="wrapper_tour">
+                 <div class="wrapper_details_tour">
+                     <div class="wrapper">
+                        <!-- get the location of the tour -->
+                         <h3 class="location_tour" name="select_tour">{{t_selected.get_location() }}</h3>
+                         <!-- get the period of the tour -->
+                         <p class="period_tour"> -{{t_selected.get_period() }} days </p>
+                     </div>
+                     <!-- get the price of the tour -->
+                     <p class="price_view_tour">  €{{t_selected.get_price() }}/per pp</p>
+                 </div>
+                 <div class="wrapper_btn_view">
+                    <!--setting the action for the form, when the butten is click
+                    the page with the tour information is open  -->
+                     <form action="/get_details_tour" method="post">
+                        <!-- get the tour id for accessing the data from the data store -->
+                         <input type="hidden" name="name" value="{{t_selected.get_id() }}">
+                         <button class="btn_view_tour" type="submit" >
+                             <span class="material-symbols-outlined">
+                                 visibility
+                                 </span>
+                            
+                         </button>
+                     </form> 
+                     <!-- defined the button for deleting an tour -->
+                     <div class="delete_fav" value="{{t_selected.get_id() }}">
+                     <form action="/delete_favourite" method="post">
+                        <!-- based on the id the tour is deleted from the data store -->
+                        <input type="hidden"name="delete_favourite_tour" value="{{t_selected.get_id() }}">
+                        <button class="btn_delete"  type="submit" >
+                            <i class="fa-solid fa-heart-circle-minus minus_heart"></i>    
+                            </button>
+                    </form>
+                    </div>
+               
+                 </div>
+                
+             </div>
+         </div>
+        </li>
+  
+       
+     {% endfor%}
+        </ul>
+        <script src="static/js/delete_fav.js"></script>
+     </div>
+     <h3 class="sub_fg">Time to catch the flight...</h3>
+     <h5 class="sub_opp">DON'T WAIT FOR OPPORTUNITY, CREATE IT!</h5>
+    <div class="container_carousel_suggestion">
+         <div class="fr_item">
+            <form class="frm_det" action="/get_details_tour" method="post">
+                <input type="hidden" name="name" value="id_rome">
+            <button class="btn_vwtr" type="submit" >
+                <img class="img_sgtr" src='{{suggestion_tours["id_rome"]}}'>
+            </button>
+            </form>
+         </div>
+         <div class="s_item">
+            <h1 class="sub_yna">Your next adventure?</h1>
+         </div>
+         <div class="t_item">
+            <form class="frm_det" action="/get_details_tour" method="post">
+                <input type="hidden" name="name" value="id_dublin">
+            <button class="btn_vwtr" type="submit" >
+                <img class="img_sgtr" src='{{suggestion_tours["id_dublin"]}}'>
+            </button>
+            </form>
+         </div>
+         <div class="f_item">
+            <form class="frm_det" action="/get_details_tour" method="post">
+                <input type="hidden" name="name" value="id_paris">
+            <button class="btn_vwtr" type="submit" >
+                <img class="img_sgtr" src='{{suggestion_tours["id_paris"]}}'>
+            </button>
+            </form>
+         </div>
+         <div class="fv_item">
+            <img class="img_sgtr img_pr" src='{{suggestion_tours["id_portugal"]}}'>
+         </div>
+
+    </div>
+    {%include "footer.html" %}
+</body>
+</html>

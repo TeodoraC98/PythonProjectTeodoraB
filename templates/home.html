@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+<div class="container_list_tour">
+    <!-- accessing the tours list -->
+    {% for tour in tours.values() %}
+   <div class="container_tour">
+       
+       <div class="wrapper_img">
+            <img  class="cover_tour"src="{{tour.get_url_img() }}">
+       </div>
+        <div class="wrapper_tour">
+            <div class="wrapper_details_tour">
+                <div class="wrapper">
+                    <!-- get locationwith a getter function from the Tour object -->
+                    <h3 class="location_tour" name="select_tour">{{tour.get_location() }}</h3>
+                  <!-- get the perid with a getter function -->
+                    <p class="period_tour"> -{{tour.get_period() }} days </p>
+                </div>
+                <!-- get price of the tour with a getter function -->
+                <p class="price_view_tour">  €{{tour.get_price() }}/per pp</p>
+            </div>
+            <div class="wrapper_btn_view">
+                <!-- set the action for the form -->
+                <!-- the method is post, because we display the information of the tour -->
+                <form action="/get_details_tour" method="post">
+                    <!-- get the id of the tour we select -->
+                    <input type="hidden" name="name" value="{{tour.get_id() }}">
+                    <button class="btn_view_tour" type="submit" >
+                        <span class="material-symbols-outlined">
+                            visibility
+                            </span>
+                    </button>
+                </form>
+
+                <form action="/set_favourite" method="post">
+                    <input type="hidden"name="favourite_tour" value="{{ tour.get_id() }}">
+                    <!-- when the page is reopen i check to see if the tour was mared like favorite -->
+                    {%if tour.get_id() in fav_tours %}
+                    <!-- if the tour was mark as favourite the icon of the heart will be red -->
+                    <button class="btn_favourite" type="submit">
+                        <i class="fa-solid fa-heart favourite_heart" data-fav="yes" data_id_tour="{{ tour.get_id() }}"></i>
+
+                    </button>
+                    {% else %}
+                    <!-- else the icon will stay black -->
+                    <button class="btn_favourite" type="submit">
+                        <i class="fa-solid fa-heart favourite_heart" data-fav="no" data_id_tour="{{ tour.get_id() }}"></i>
+
+                    </button>
+                    {% endif %}
+                </form>
+             
+            </div>
+           
+        </div>
+    </div>
+   
+    {% endfor %}
+    <script src="static/js/set_favourite.js"></script>
+</div>
+{% endblock %}

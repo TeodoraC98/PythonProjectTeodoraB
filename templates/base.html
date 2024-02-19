@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/4da6a52bad.js" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Abyssinica SIL' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body> 
+  {% include "nav.html" %}
+ 
+  <div class="container_banner">
+  
+    <div class="left_bare">
+       <div class="wrapper_background_title">
+        <img class="second_pic" src="static/images/banner/sunset.jpeg"> 
+        <img class="second_pic" src="static/images/banner/romania.jpg">
+        <img class="second_pic" src="static/images/banner/iceland.jpeg"> 
+        <img class="second_pic" src="static/images/banner/portugal.jpeg">  
+       </div>
+    </div>
+    <div class="wrapper_banner_pic">
+        <img class="banner_pic" src="static/images/banner/blackBeachIceland.jpeg"> 
+        <img class="banner_pic" src="static/images/banner/mountainRomania.jpg"> 
+        <img class="banner_pic" src="static/images/banner/sunsetIceland.jpeg"> 
+        <img class="banner_pic" src="static/images/banner/sunsetPortugal.jpeg"> 
+    </div>
+    <script src="static/js/banner_carousel.js" defer></script>
+</div>
+<div class="wrfg">
+  <h3 class="sub_fg">Time to catch a flight...</h3>
+  <p class="team_des">
+    Our team consists of amazing people whose passion for adventure,
+     exploration, and knowledge led to the creation of a perfect team, 
+     to help you discover a new world, full of mystery. We offer a comprehensive
+      selection of tourist attractions. Whether you want to discover historic 
+      cities like Rome, visit the world's most popular museums in Paris, or hike
+       a trail in the Carpathian mountains, we organize everything down to the
+        smallest detail so you can enjoy the most wonderful experiences. </p>
+</div>
+    <main class="container_index">
+      <!-- including the main block with the list of tours -->
+        {% block main %}
+        {% endblock %}
+    </main>
+    <div class="inf_location">
+      <div></div>
+      <h3 class="subt">YOU CAN FOUND US HERE</h3>
+      <p>
+        If you have any questions, don't hesitate to send us a message at yourtour@gmail.com
+         or call the number <a href="085534527"> (+353) 85534527</a></p>
+    </div>
+  
+  <div class="wrapper_map">
+
+   <div class="wrapper_contact_details">
+    <h4 >Get in touch</h4>
+    <p class="sub_contdet">From Monday to Friday: 8AM - 4PM</p>
+    <p class="sub_contdet">Address: 3 Abbey Street Kilkenny</p></br>
+   <p class="sub_contdet">Mobile nr: <a href="085534527">085534527</a></p>
+   <p class="sub_contdet">Email: <a href="yourtour@gmail.com">yourtour@gamil.com</a></p>
+   </div>
+    <div class="container_map" id="googleMap">
+   <script>  
+    function initMap() {
+  let map = new  google.maps.Map(document.getElementById("googleMap"), {
+    center: {lat:52.65436911431624,lng:-7.256745277710725},
+    zoom: 15,
+  });
+ const img="static/images/marker.png";
+ img.fontsize="20px";
+  let marker= new google.maps.Marker({
+    position:{lat:52.65436911431624,lng:-7.256745277710725},
+    map:map,
+    title:"3 ABBEY STREET",
+    icon:img,
+  })
+}  
+ </script>
+         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7SPjmiJa8mq1wYTPoKe3EyMM9ME1_UQs&callback=initMap&libraries=&v=weekly" defer></script>
+    
+        </div>
+   </div>
+   {% include "footer.html" %}
+ </body>
+ </html>

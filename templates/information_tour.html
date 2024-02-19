@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4da6a52bad.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- include navigation bar -->
+  {% include "nav.html"%}
+  <div class="container_inf_tour">
+<div class="wrapper_title" >
+  <!-- i access the name of the location -->
+  <h2 class="dis">Discover {{tour.get_location()}}  </h2>
+  <!-- each key is the name of the tourist attraction -->
+  <!-- with a for i access the list elements -->
+  {% for key in keys%}
+  <h4 class="subtitle_obv">{{key}}</h4>
+  {% endfor %}
+
+</div>
+ 
+    <div class="container_carousel">
+      <div class="wrapper_c">
+      <div class="wrapper_small_pic">
+        <!-- I have defined an image sidebar for  tours, when an image is selected that image is displayed in the carousel -->
+        {% for path in paths %}
+        <div>
+          <img class="small_pic" src="{{ path}}">  
+       </div>
+       {% endfor%}
+      </div>
+      <div class="wrapper_carousel_item">
+           <!-- i implement a carousel with representative images for each tour -->
+        {% for path in paths %}
+        <div class="item_carousel_img">
+             <img class="img_tr_det" src="{{path}}">  
+          </div>
+        {% endfor%}
+        <!-- next and prev button for the carousel -->
+        <i class="fa-solid fa-arrow-left prev" id="prev_btn"></i>
+        <i class="fa-solid fa-arrow-right next" id="next_btn"></i>
+       </div>
+       </div>
+    </div>
+    <div class="container_information">
+      <!-- the tourist_attraction is a dictionary -->
+  <!-- each key is the name of the tourist attraction -->
+      {% for key in keys%}
+      <h3 class="title_obv">{{ key}}</h3>
+<!-- I display the information for each tourist attraction -->
+        <p>{{tourist_attraction[key]}}</p> 
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="cont_sugg">
+    <div  class="wrapper_sugg">
+    <div class="wr_it" id="fr_item">
+      <!-- I created a carousel with tourist suggestions, the tourist suggestions are stored in a dictionary -->
+      <!-- the carousel has 3 frames for each frame i read the date from the suggestion_tours -->
+
+      {% for key in suggestion_tours.keys() %}
+      <!-- frame1 -->
+      <!-- the key is the id of the tour -->
+      <!-- when select an image you are redirected to the page with that tour information  -->
+      <form class="frm_det frm_fr" action="/get_details_tour" method="post">
+        <input type="hidden" name="name" value="{{key}}">
+      <button class="btn_vwtr" type="submit" >
+        <img class="img_crsg img_fr_it"  src="{{ suggestion_tours[key] }}">
+       </button>
+    </form>
+      {% endfor %}
+    </div>
+    <div class="wr_it" id="sc_item"> 
+      <!-- frame 2 -->
+      {% for key in suggestion_tours.keys()%}
+      <form class="frm_det frm_sc" action="/get_details_tour" method="post">
+        <input type="hidden" name="name" value="{{key}}">
+    <button class="btn_vwtr" type="submit" >
+        <img class="img_crsg img_sc_it"  src="{{ suggestion_tours[key] }}">
+    </button>
+    </form>
+      {% endfor %}
+    </div>
+    <div class="wr_it" id="th_item">
+      <!-- frame 3 -->
+      {% for key in suggestion_tours.keys()%}
+      <form class="frm_det frm_th" action="/get_details_tour" method="post">
+        <input type="hidden" name="name" value="{{key}}">
+    <button class="btn_vwtr" type="submit" >
+        <img class="img_crsg img_th_it"  src="{{ suggestion_tours[key] }}">
+    </button>
+    </form>
+     {%endfor%}
+    </div>
+    <div> 
+      <!-- next button, when i click the button all the pictures from all of the frames changes -->
+      <i class="fa-solid fa-chevron-right next_crsg"  id="next_btn_sg"></i>
+    </div>
+    <div> 
+      <i class="fa-solid fa-angle-left prev_crsg"id="prev_btn_sg"></i>
+    </div>
+    <!-- including the javascript code for the functionality of the carousel with 3 frames -->
+    <script src="static/js/carousel_suggestion.js"></script>
+  </div>
+</div>
+{%include "footer.html" %}
+</body>
+<!-- including the javascript code for the functionality of the carousel -->
+<script src="static/js/carousel.js"></script>
+
+</html>
